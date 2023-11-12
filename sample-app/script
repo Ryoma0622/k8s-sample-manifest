@@ -1,23 +1,23 @@
 # For Release
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
-helm upgrade --install sample-app-release sample-app --set image.tag=1.0.0 --set ingress.className=nginx --create-namespace -n sample-app-release-ns
+helm upgrade --install sample-app-blue sample-app --set image.tag=1.0.0 --set ingress.className=nginx --create-namespace -n sample-app
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
 
-curl -v 'http://sample-app-release.example.com:8080/api/sample'
+curl -v 'http://sample-app-blue.example.com:8080/api/sample'
 
 # For RC
 
 helm upgrade --install ingress-nginx-internal ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx-internal --create-namespace -f sample-app/internal-nginx-values.yaml
-helm upgrade --install sample-app-rc sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal --create-namespace -n sample-app-rc-ns
+helm upgrade --install sample-app-green sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal --create-namespace -n sample-app
 kubectl port-forward --namespace=ingress-nginx-internal service/ingress-nginx-internal-controller 8888:80
 
-curl -v 'http://rc-sample-app.example.com:8888/api/sample'
+curl -v 'http://sample-app-green.example.com:8888/api/sample'
 
 
 # Change Services
 
-helm upgrade --install sample-app-release sample-app --set image.tag=1.0.0 --set ingress.className=nginx --set service.name=sample-app-rc
-helm upgrade --install sample-app-rc sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal --set service.name=sample-app-release
+helm upgrade --install sample-app-blue sample-app -n sample-app --set image.tag=1.0.0 --set ingress.className=nginx --set service.name=sample-app-green
+helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal --set service.name=sample-app-blue
 
-helm upgrade --install sample-app-release sample-app --set image.tag=1.0.0 --set ingress.className=nginx
-helm upgrade --install sample-app-rc sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal
+helm upgrade --install sample-app-blue sample-app -n sample-app --set image.tag=1.0.0 --set ingress.className=nginx
+helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal

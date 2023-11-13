@@ -3,6 +3,8 @@ ingress:
   enabled: true
   className: "nginx"
   classNameRc: "nginx-internal"
+  name: "sample-app-ingress"
+  nameRc: "sample-app-ingress-rc"
   namespace: "sample-app-ingress"
   namespaceRc: "sample-app-ingress-rc"
   service:

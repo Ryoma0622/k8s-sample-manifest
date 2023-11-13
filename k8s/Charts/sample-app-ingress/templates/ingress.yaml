@@ -14,10 +14,6 @@ metadata:
   {{- end }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
-    {{- if .Values.ingress.isCanaryEnabled }}
-    nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "10"
-    {{ end }}
 spec:
   {{- if .Values.ingress.isRc }}
   ingressClassName: {{ .Values.ingress.classNameRc }}

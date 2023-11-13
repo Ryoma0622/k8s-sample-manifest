@@ -22,7 +22,11 @@ spec:
   ingressClassName: {{ .Values.ingress.className }}
   {{- end }}
   rules:
+    {{- if .Values.ingress.isRc }}
     - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- else }}
+    - host: "{{ .Values.ingress.hostRc | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- end }}
       http:
         paths:
           - path: {{ .Values.ingress.path | default "/" }}
@@ -61,5 +65,5 @@ spec:
                 name: {{ .Values.ingress.svc.nameRc }}
                 port:
                   number: {{ .Values.ingress.port }}
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}

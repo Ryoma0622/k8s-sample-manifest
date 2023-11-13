@@ -85,3 +85,13 @@ argocd app create sample-app-200 \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
   --upsert
+
+argocd app create sample-app-ingress \
+  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --path k8s/Charts/sample-app-ingress \
+  --helm-set ingress.isRc=false \
+  --helm-set ingress.isCanaryEnabled=true \
+  --dest-namespace sample-app-ingress \
+  --dest-server https://kubernetes.default.svc \
+  --sync-policy automated \
+  --upsert

@@ -13,7 +13,7 @@ ingress:
     name: "sample-app-svc"
     nameRc: "sample-app-svc-rc"
   path: "/"
-  pathType: "Prefix"
+  pathType: "ImplementationSpecific"
   namespace: "sample-app-ingress"
   namespaceRc: "sample-app-ingress-rc"
   annotations: {}

@@ -1,9 +1,9 @@
 # For Release
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
 helm upgrade --install sample-app-blue sample-app --set image.tag=1.0.0 --set ingress.className=nginx --create-namespace -n sample-app
-kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
+kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8880:80
 
-curl -v 'http://sample-app-blue.example.com:8080/api/sample'
+curl -v 'http://sample-app-blue.example.com:8880/api/sample'
 
 # For RC
 
@@ -21,3 +21,32 @@ helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag
 
 helm upgrade --install sample-app-blue sample-app -n sample-app --set image.tag=1.0.0 --set ingress.className=nginx
 helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal
+
+
+# ArgoCD
+
+helm repo add argo https://argoproj.github.io/argo-helm
+
+helm install argocd argo/argo-cd -n argocd --create-namespace
+
+argocd repo add https://github.com/Ryoma0622/sample-rest-api.git
+
+argocd app create sample-app-blue \
+  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --path sample-app \
+  --helm-set image.tag=1.0.0 \
+  --helm-set ingress.className=nginx \
+  --dest-namespace sample-app \
+  --dest-server https://kubernetes.default.svc \
+  --sync-policy automated \
+  --upsert
+
+argocd app create sample-app-green \
+  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --path sample-app \
+  --helm-set image.tag=2.0.0 \
+  --helm-set ingress.className=nginx-internal \
+  --dest-namespace sample-app \
+  --dest-server https://kubernetes.default.svc \
+  --sync-policy automated \
+  --upsert

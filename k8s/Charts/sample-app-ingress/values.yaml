@@ -14,10 +14,10 @@ ingress:
   port: 8080
   external:
     service:
-#      name: "sample-app-100"
-      name: "sample-app-200"
+      name: "sample-app-100"
+#      name: "sample-app-200"
       nameRc: "sample-app-200"
-#    namespace: "sample-app-100"
-    namespace: "sample-app-200"
+    namespace: "sample-app-100"
+#    namespace: "sample-app-200"
     namespaceRc: "sample-app-200"
   tls: []

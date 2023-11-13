@@ -2,11 +2,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "sample-app.fullname" . }}-ingress
+  name: {{ include "sample-app.fullname" . }}
+  {{- if .Values.ingress.isRc }}
+  namespace: {{ .Values.ingress.namespaceRc }}
+  {{- else }}
+  namespace: {{ .Values.ingress.namespace }}
+  {{- end }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 8 }}
 spec:
+  {{- if .Values.ingress.isRc }}
+  ingressClassName: {{ .Values.ingress.classNameRc }}
+  {{- else }}
   ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
   rules:
     - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
       http:
@@ -15,8 +24,12 @@ spec:
             pathType: {{ .Values.ingress.pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ .Values.service.name | default (include "sample-app.fullname" .) }}
+                {{- if .Values.ingress.isRc }}
+                name: {{ .Values.ingress.service.nameRc }}
+                {{- else }}
+                name: {{ .Values.service.service.name }}
+                {{- end}}
 #                name: {{ include "sample-app.fullname" . }}
                 port:
-                  number: {{ .Values.service.port }}
-  {{- end }}
+                  number: {{ .Values.ingress.port }}
+{{- end }}

@@ -1,0 +1,16 @@
+ingress:
+  isRc: true
+  enabled: true
+  className: "nginx"
+  classNameRc: "nginx-internal"
+  namespace: "sample-app-ingress"
+  namespaceRc: "sample-app-ingress-rc"
+  service:
+    name: "sample-app-100"
+    nameRc: "sample-app-200"
+  annotations: {}
+  port: 8080
+  external:
+    namespace: "sample-app-100"
+    namespaceRc: "sample-app-200"
+  tls: []

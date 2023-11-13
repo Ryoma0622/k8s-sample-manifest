@@ -55,3 +55,8 @@ argocd app create sample-app-200 \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
   --upsert
+
+
+
+
+helm upgrade --install sample-app-ingress-100 sample-app-ingress --set ingress.isRc=true

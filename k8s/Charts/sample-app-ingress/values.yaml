@@ -1,13 +1,19 @@
 ingress:
+  name: "sample-app-ingress"
+  nameRc: "sample-app-ingress-rc"
+  nameCanary: "sample-app-ingress-canary"
   isRc: true
+  isCanaryEnabled: false
   enabled: true
   className: "nginx"
   classNameRc: "nginx-internal"
+  host: "sample-app-ingress.example.com"
+  hostRc: "sample-app-ingress-rc.example.com"
   svc:
     name: "sample-app-svc"
     nameRc: "sample-app-svc-rc"
-  name: "sample-app-ingress"
-  nameRc: "sample-app-ingress-rc"
+  path: "/"
+  pathType: "Prefix"
   namespace: "sample-app-ingress"
   namespaceRc: "sample-app-ingress-rc"
   annotations: {}

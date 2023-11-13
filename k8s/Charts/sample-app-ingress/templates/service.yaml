@@ -7,6 +7,15 @@ metadata:
 spec:
   type: ExternalName
   externalName: {{ .Values.ingress.external.service.name }}.{{ .Values.ingress.external.namespace }}.svc.cluster.local
+{{- else if .Values.ingress.isCanaryEnabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ingress.svc.nameRc }}
+  namespace: {{ .Values.ingress.namespace }}
+spec:
+  type: ExternalName
+  externalName: {{ .Values.ingress.svc.nameRc }}.{{ .Values.ingress.namespaceRc }}.svc.cluster.local
 {{- else }}
 apiVersion: v1
 kind: Service

@@ -37,10 +37,11 @@ spec:
               service:
                 {{- if .Values.ingress.isProduction }}
                 name: {{ .Values.ingress.svc.name }}
+                {{- else if .Values.ingress.isCanaryEnabled}}
+                name: {{ .Values.ingress.svc.nameRc }}
                 {{- else }}
                 name: {{ .Values.ingress.svc.nameRc }}
                 {{- end}}
-#                name: {{ include "sample-app.fullname" . }}
                 port:
                   number: {{ .Values.ingress.port }}
 {{- end }}

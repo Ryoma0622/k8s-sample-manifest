@@ -27,7 +27,7 @@ spec:
                 {{- if .Values.ingress.isRc }}
                 name: {{ .Values.ingress.service.nameRc }}
                 {{- else }}
-                name: {{ .Values.service.service.name }}
+                name: {{ .Values.ingress.service.name }}
                 {{- end}}
 #                name: {{ include "sample-app.fullname" . }}
                 port:

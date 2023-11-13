@@ -88,7 +88,6 @@ argocd app create sample-app-200 \
 argocd app create sample-app-ingress-canary \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path k8s/Charts/sample-app-ingress \
-  --helm-set ingress.isProduction=true \
   --helm-set ingress.isCanaryEnabled=true \
   --dest-namespace sample-app-ingress \
   --dest-server https://kubernetes.default.svc \

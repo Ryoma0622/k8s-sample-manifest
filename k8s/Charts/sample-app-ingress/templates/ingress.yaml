@@ -12,8 +12,8 @@ metadata:
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- if .Values.ingress.isCanaryEnabled }}
-    nginx.ingress.kubernetes.io/canary: \"true\"
-    nginx.ingress.kubernetes.io/canary-weight: \"90\"
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "90"
     {{ end }}
 spec:
   {{- if .Values.ingress.isRc }}
@@ -50,8 +50,8 @@ metadata:
   namespace: {{ .Values.ingress.namespace }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
-    nginx.ingress.kubernetes.io/canary: \"true\"
-    nginx.ingress.kubernetes.io/canary-weight: \"10\"
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:

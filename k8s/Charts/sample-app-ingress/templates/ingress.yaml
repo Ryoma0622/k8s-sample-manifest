@@ -23,9 +23,9 @@ spec:
   {{- end }}
   rules:
     {{- if .Values.ingress.isRc }}
-    - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
-    {{- else }}
     - host: "{{ .Values.ingress.hostRc | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- else }}
+    - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
     {{- end }}
       http:
         paths:

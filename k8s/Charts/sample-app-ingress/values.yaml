@@ -3,16 +3,19 @@ ingress:
   enabled: true
   className: "nginx"
   classNameRc: "nginx-internal"
+  svc:
+    name: "sample-app-svc"
+    nameRc: "sample-app-svc-rc"
   name: "sample-app-ingress"
   nameRc: "sample-app-ingress-rc"
   namespace: "sample-app-ingress"
   namespaceRc: "sample-app-ingress-rc"
-  service:
-    name: "sample-app-100"
-    nameRc: "sample-app-200"
   annotations: {}
   port: 8080
   external:
+    service:
+      name: "sample-app-100"
+      nameRc: "sample-app-200"
     namespace: "sample-app-100"
     namespaceRc: "sample-app-200"
   tls: []

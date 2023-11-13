@@ -25,9 +25,9 @@ spec:
             backend:
               service:
                 {{- if .Values.ingress.isRc }}
-                name: {{ .Values.ingress.service.nameRc }}
+                name: {{ .Values.ingress.svc.nameRc }}
                 {{- else }}
-                name: {{ .Values.ingress.service.name }}
+                name: {{ .Values.ingress.svc.name }}
                 {{- end}}
 #                name: {{ include "sample-app.fullname" . }}
                 port:

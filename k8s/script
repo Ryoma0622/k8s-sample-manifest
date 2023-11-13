@@ -85,7 +85,7 @@ argocd app create sample-app-200 \
   --sync-policy automated \
   --upsert
 
-argocd app create sample-app-ingress \
+argocd app create sample-app-ingress-canary \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path k8s/Charts/sample-app-ingress \
   --helm-set ingress.isCanaryEnabled=true \

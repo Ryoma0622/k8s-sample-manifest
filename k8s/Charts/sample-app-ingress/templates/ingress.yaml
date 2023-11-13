@@ -5,6 +5,9 @@ metadata:
   {{- if .Values.ingress.isRc }}
   name: {{ .Values.ingress.nameRc }}
   namespace: {{ .Values.ingress.namespaceRc }}
+  {{- else if .Values.ingress.isCanaryEnabled }}
+  name: {{ .Values.ingress.nameCanary }}
+  namespace: {{ .Values.ingress.namespace }}
   {{- else }}
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.ingress.namespace }}
@@ -13,7 +16,7 @@ metadata:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- if .Values.ingress.isCanaryEnabled }}
     nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "90"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
     {{ end }}
 spec:
   {{- if .Values.ingress.isRc }}
@@ -41,29 +44,4 @@ spec:
 #                name: {{ include "sample-app.fullname" . }}
                 port:
                   number: {{ .Values.ingress.port }}
-{{- if .Values.ingress.isCanaryEnabled }}
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: {{ .Values.ingress.nameCanary }}
-  namespace: {{ .Values.ingress.namespace }}
-  annotations:
-    {{- toYaml .Values.ingress.annotations | nindent 4 }}
-    nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "10"
-spec:
-  ingressClassName: {{ .Values.ingress.className }}
-  rules:
-    - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
-      http:
-        paths:
-          - path: {{ .Values.ingress.path | default "/" }}
-            pathType: {{ .Values.ingress.pathType | default "Prefix" }}
-            backend:
-              service:
-                name: {{ .Values.ingress.svc.nameRc }}
-                port:
-                  number: {{ .Values.ingress.port }}
-{{- end }}
 {{- end }}

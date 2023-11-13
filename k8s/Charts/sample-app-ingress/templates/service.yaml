@@ -1,13 +1,4 @@
-{{- if .Values.ingress.isRc }}
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.ingress.svc.nameRc }}
-  namespace: {{ .Values.ingress.namespaceRc }}
-spec:
-  type: ExternalName
-  externalName: {{ .Values.ingress.external.service.nameRc }}.{{ .Values.ingress.external.namespaceRc }}.svc.cluster.local
-{{- else }}
+{{- if .Values.ingress.isProduction }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -16,4 +7,13 @@ metadata:
 spec:
   type: ExternalName
   externalName: {{ .Values.ingress.external.service.name }}.{{ .Values.ingress.external.namespace }}.svc.cluster.local
+{{- else }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ingress.svc.nameRc }}
+  namespace: {{ .Values.ingress.namespaceRc }}
+spec:
+  type: ExternalName
+  externalName: {{ .Values.ingress.external.service.nameRc }}.{{ .Values.ingress.external.namespaceRc }}.svc.cluster.local
 {{ end }}

@@ -2,7 +2,7 @@ ingress:
   name: "sample-app-ingress"
   nameRc: "sample-app-ingress-rc"
   nameCanary: "sample-app-ingress-canary"
-  isRc: true
+  isProduction: false
   isCanaryEnabled: false
   enabled: true
   className: "nginx"

@@ -2,29 +2,33 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  {{- if .Values.ingress.isRc }}
-  name: {{ .Values.ingress.nameRc }}
-  namespace: {{ .Values.ingress.namespaceRc }}
-  {{- else if .Values.ingress.isCanaryEnabled }}
+  {{- if .Values.ingress.isCanaryEnabled }}
   name: {{ .Values.ingress.nameCanary }}
   namespace: {{ .Values.ingress.namespace }}
-  {{- else }}
+  {{- else if .Values.ingress.isProduction }}
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.ingress.namespace }}
+  {{- else }}
+  name: {{ .Values.ingress.nameRc }}
+  namespace: {{ .Values.ingress.namespaceRc }}
   {{- end }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
+    {{- if .Values.ingress.isCanaryEnabled }}
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+    {{- end }}
 spec:
-  {{- if .Values.ingress.isRc }}
-  ingressClassName: {{ .Values.ingress.classNameRc }}
-  {{- else }}
+  {{- if .Values.ingress.isProduction }}
   ingressClassName: {{ .Values.ingress.className }}
+  {{- else }}
+  ingressClassName: {{ .Values.ingress.classNameRc }}
   {{- end }}
   rules:
-    {{- if .Values.ingress.isRc }}
-    - host: "{{ .Values.ingress.hostRc | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
-    {{- else }}
+    {{- if .Values.ingress.isProduction }}
     - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- else }}
+    - host: "{{ .Values.ingress.hostRc | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
     {{- end }}
       http:
         paths:
@@ -32,10 +36,10 @@ spec:
             pathType: {{ .Values.ingress.pathType | default "Prefix" }}
             backend:
               service:
-                {{- if .Values.ingress.isRc }}
-                name: {{ .Values.ingress.svc.nameRc }}
-                {{- else }}
+                {{- if .Values.ingress.isProduction }}
                 name: {{ .Values.ingress.svc.name }}
+                {{- else }}
+                name: {{ .Values.ingress.svc.nameRc }}
                 {{- end}}
 #                name: {{ include "sample-app.fullname" . }}
                 port:

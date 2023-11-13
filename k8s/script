@@ -4,8 +4,8 @@ helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.git
 helm upgrade --install ingress-nginx-internal ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx-internal --create-namespace -f internal-nginx-values.yaml
 
 helm upgrade --install sample-app-ns sample-app-ns
-helm upgrade --install sample-app-ingress-rc sample-app-ingress --set ingress.isRc=true -n sample-app-ingress-rc
-helm upgrade --install sample-app-ingress sample-app-ingress --set ingress.isRc=false -n sample-app-ingress
+helm upgrade --install sample-app-ingress-rc sample-app-ingress -n sample-app-ingress-rc
+helm upgrade --install sample-app-ingress sample-app-ingress --set ingress.isProduction=true -n sample-app-ingress
 
 # For Release
 
@@ -51,6 +51,7 @@ argocd app create sample-app-ns \
 argocd app create sample-app-ingress \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path k8s/Charts/sample-app-ingress \
+  --helm-set ingress.isProduction=true \
   --dest-namespace sample-app-ingress \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
@@ -59,7 +60,6 @@ argocd app create sample-app-ingress \
 argocd app create sample-app-ingress-rc \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path k8s/Charts/sample-app-ingress \
-  --helm-set ingress.isRc=true \
   --dest-namespace sample-app-ingress-rc \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
@@ -88,6 +88,7 @@ argocd app create sample-app-200 \
 argocd app create sample-app-ingress-canary \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path k8s/Charts/sample-app-ingress \
+  --helm-set ingress.isProduction=true \
   --helm-set ingress.isCanaryEnabled=true \
   --dest-namespace sample-app-ingress \
   --dest-server https://kubernetes.default.svc \

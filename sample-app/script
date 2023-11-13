@@ -1,17 +1,17 @@
 # For Release
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
-helm upgrade --install sample-app-blue sample-app --set image.tag=1.0.0 --set ingress.className=nginx --create-namespace -n sample-app
+helm upgrade --install sample-app-100 sample-app --set image.tag=1.0.0 --set ingress.className=nginx --create-namespace -n sample-app-100
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8880:80
 
-curl -v 'http://sample-app-blue.example.com:8880/api/sample'
+curl -v 'http://sample-app-100.example.com:8880/api/sample'
 
 # For RC
 
 helm upgrade --install ingress-nginx-internal ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx-internal --create-namespace -f sample-app/internal-nginx-values.yaml
-helm upgrade --install sample-app-green sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal --create-namespace -n sample-app
+helm upgrade --install sample-app-200 sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal --create-namespace -n sample-app-200
 kubectl port-forward --namespace=ingress-nginx-internal service/ingress-nginx-internal-controller 8888:80
 
-curl -v 'http://sample-app-green.example.com:8888/api/sample'
+curl -v 'http://sample-app-200.example.com:8888/api/sample'
 
 
 # Change Services
@@ -28,28 +28,30 @@ helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag
 helm repo add argo https://argoproj.github.io/argo-helm
 
 helm install argocd argo/argo-cd -n argocd --create-namespace
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 argocd login localhost:8080
 argocd account update-password
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+
 
 argocd repo add https://github.com/Ryoma0622/sample-rest-api.git
 
-argocd app create sample-app-blue \
+argocd app create sample-app-100 \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path sample-app \
   --helm-set image.tag=1.0.0 \
   --helm-set ingress.className=nginx \
-  --dest-namespace sample-app \
+  --dest-namespace sample-app-100 \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
   --upsert
 
-argocd app create sample-app-green \
+argocd app create sample-app-200 \
   --repo https://github.com/Ryoma0622/sample-rest-api.git \
   --path sample-app \
   --helm-set image.tag=2.0.0 \
   --helm-set ingress.className=nginx-internal \
-  --dest-namespace sample-app \
+  --dest-namespace sample-app-200 \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
   --upsert

@@ -45,7 +45,7 @@ spec:
                 name: {{ .Values.ingress.svc.nameRc }}
                 {{- else }}
                 name: {{ .Values.ingress.svc.nameRc }}
-                {{- end}}
+                {{- end }}
                 port:
                   number: {{ .Values.ingress.port }}
 {{- end }}

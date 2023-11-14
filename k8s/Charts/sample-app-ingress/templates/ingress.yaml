@@ -15,7 +15,7 @@ metadata:
   annotations:
     {{- if .Values.ingress.isCanaryEnabled }}
     nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "{{ .Values.ingress.canary.weight | quote }}"
+    nginx.ingress.kubernetes.io/canary-weight: "20"
     {{- end }}
 spec:
   {{- if .Values.ingress.isProduction }}

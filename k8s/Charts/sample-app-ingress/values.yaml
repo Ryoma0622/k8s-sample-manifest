@@ -26,6 +26,4 @@ ingress:
     namespace: "sample-app-100"
 #    namespace: "sample-app-200"
     namespaceRc: "sample-app-200"
-  canary:
-    weight: "20"
   tls: []

@@ -1,0 +1,29 @@
+ingress:
+  name: "sample-app-ingress"
+  nameRc: "sample-app-ingress-rc"
+  nameCanary: "sample-app-ingress-canary"
+  isProduction: false
+  isCanaryEnabled: false
+  enabled: true
+  className: "nginx"
+  classNameRc: "nginx-internal"
+  host: "sample-app-ingress.example.com"
+  hostRc: "sample-app-ingress-rc.example.com"
+  svc:
+    name: "sample-app-svc"
+    nameRc: "sample-app-svc-rc"
+  path: "/"
+  pathType: "ImplementationSpecific"
+  namespace: "sample-app-ingress"
+  namespaceRc: "sample-app-ingress-rc"
+  annotations: {}
+  port: 8080
+  external:
+    service:
+      name: "sample-app-100"
+#      name: "sample-app-200"
+      nameRc: "sample-app-200"
+    namespace: "sample-app-100"
+#    namespace: "sample-app-200"
+    namespaceRc: "sample-app-200"
+  tls: []

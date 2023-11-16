@@ -1,0 +1,51 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  {{- if .Values.ingress.isProduction }}
+  name: {{ .Values.ingress.name }}
+  namespace: {{ .Values.ingress.namespace }}
+  {{- else if .Values.ingress.isCanaryEnabled }}
+  name: {{ .Values.ingress.nameCanary }}
+  namespace: {{ .Values.ingress.namespace }}
+  {{- else }}
+  name: {{ .Values.ingress.nameRc }}
+  namespace: {{ .Values.ingress.namespaceRc }}
+  {{- end }}
+  annotations:
+    {{- if .Values.ingress.isCanaryEnabled }}
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "20"
+    {{- end }}
+spec:
+  {{- if .Values.ingress.isProduction }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- else if .Values.ingress.isCanaryEnabled }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- else }}
+  ingressClassName: {{ .Values.ingress.classNameRc }}
+  {{- end }}
+  rules:
+    {{- if .Values.ingress.isProduction }}
+    - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- else if .Values.ingress.isCanaryEnabled }}
+    - host: "{{ .Values.ingress.host | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- else }}
+    - host: "{{ .Values.ingress.hostRc | default (printf "%s.example.com" (include "sample-app.fullname" .)) }}"
+    {{- end }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.path | default "/" }}
+            pathType: {{ .Values.ingress.pathType | default "Prefix" }}
+            backend:
+              service:
+                {{- if .Values.ingress.isProduction }}
+                name: {{ .Values.ingress.svc.name }}
+                {{- else if .Values.ingress.isCanaryEnabled}}
+                name: {{ .Values.ingress.svc.nameRc }}
+                {{- else }}
+                name: {{ .Values.ingress.svc.nameRc }}
+                {{- end }}
+                port:
+                  number: {{ .Values.ingress.port }}
+{{- end }}

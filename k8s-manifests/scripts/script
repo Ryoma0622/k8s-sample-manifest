@@ -31,7 +31,7 @@ helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag
 
 # Kubeseal
 
-kubectl create secret generic sample-app-nginx-crt-secret --from-file=hogehoge.crt -o yaml > sample-app-nginx-crt-secret.yaml
+kubectl create secret generic sample-app-nginx-crt-secret --dry-run=client --from-file=hogehoge.crt -o yaml > sample-app-nginx-crt-secret.yaml
 kubeseal -f sample-app-nginx-crt-secret.yaml -w sample-app-nginx-crt-seald-secret.yaml
 
 # ArgoCD

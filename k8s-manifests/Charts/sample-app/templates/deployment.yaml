@@ -18,8 +18,22 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.targetPort }}
+              containerPort: {{ .Values.deployment.app.port }}
               protocol: TCP
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - name: http
+              containerPort:  {{ .Values.deployment.nginx.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: nginx-proxy-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: nginx-proxy-config
+          configMap:
+            name: sample-app-nginx-conf
   strategy:
     type: RollingUpdate
     rollingUpdate:

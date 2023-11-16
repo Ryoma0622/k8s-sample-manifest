@@ -11,8 +11,14 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 8080
-  targetPort: 8080
+  port: 80
+  targetPort: 80
+
+deployment:
+  app:
+    port: 8080
+  nginx:
+    port: 80
 
 resources: {}
 nodeSelector: {}

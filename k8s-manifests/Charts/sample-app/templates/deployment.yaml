@@ -28,12 +28,20 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: nginx-proxy-config
+              readOnly: true
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+            - name: nginx-sample-app-crt-secret
+              readOnly: true
+              mountPath: /etc/nginx/ssl/sample-app-nginx.crt
+              subPath: hogehoge.crt
       volumes:
         - name: nginx-proxy-config
           configMap:
             name: sample-app-nginx-conf
+        - name: nginx-sample-app-crt-secret
+          secret:
+            secretName: sample-app-nginx-crt-secret
   strategy:
     type: RollingUpdate
     rollingUpdate:

@@ -29,6 +29,11 @@ helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag
 helm upgrade --install sample-app-blue sample-app -n sample-app --set image.tag=1.0.0 --set ingress.className=nginx
 helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag=2.0.0 --set ingress.className=nginx-internal
 
+# Kubeseal
+
+kubectl create secret generic sample-app-nginx-crt-secret --from-file=hogehoge.crt -o yaml > sample-app-nginx-crt-secret.yaml
+kubeseal -f sample-app-nginx-crt-secret.yaml -w sample-app-nginx-crt-seald-secret.yaml
+
 # ArgoCD
 
 helm repo add argo https://argoproj.github.io/argo-helm

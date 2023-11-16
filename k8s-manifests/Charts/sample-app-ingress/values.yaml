@@ -17,7 +17,7 @@ ingress:
   namespace: "sample-app-ingress"
   namespaceRc: "sample-app-ingress-rc"
   annotations: {}
-  port: 8080
+  port: 80
   external:
     service:
       name: "sample-app-100"

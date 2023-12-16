@@ -31,6 +31,9 @@ helm upgrade --install sample-app-green sample-app -n sample-app --set image.tag
 
 # Kubeseal
 
+brew install kubeseal
+helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
+helm install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
 kubectl create secret generic sample-app-nginx-crt-secret --dry-run=client --from-file=hogehoge.crt -o yaml > sample-app-nginx-crt-secret.yaml
 kubeseal --scope cluster-wide -f sample-app-nginx-crt-secret.yaml -w sample-app-nginx-crt-seald-secret.yaml
 

@@ -13,28 +13,29 @@ spec:
   - type: ContainerResource
     containerResource:
       name: cpu
-      container: {{ .Values.hpa.metrics.container.app.name }}
+      container: {{ .Values.hpa.metrics.containers.app.name }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.metrics.container.app.cpu.averageUtilization }}
+        averageUtilization: {{ .Values.hpa.metrics.containers.app.cpu.averageUtilization }}
   - type: ContainerResource
     containerResource:
       name: memory
-      container: {{ .Values.hpa.metrics.container.app.name }}
+      container: {{ .Values.hpa.metrics.containers.app.name }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.metrics.container.app.memory.averageUtilization }}
+        averageUtilization: {{ .Values.hpa.metrics.containers.app.memory.averageUtilization }}
   - type: ContainerResource
     containerResource:
       name: cpu
-      container: {{ .Values.hpa.metrics.container.web.name }}
+      container: {{ .Values.hpa.metrics.containers.web.name }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.metrics.container.web.cpu.averageUtilization }}
+        averageUtilization: {{ .Values.hpa.metrics.containers.web.cpu.averageUtilization }}
   - type: ContainerResource
     containerResource:
       name: memory
-      container: {{ .Values.hpa.metrics.container.web.name }}
+      container: {{ .Values.hpa.metrics.containers.web.name }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.metrics.container.web.memory.averageUtilization }}
+        averageUtilization: {{ .Values.hpa.metrics.containers.web.memory.averageUtilization }}
+

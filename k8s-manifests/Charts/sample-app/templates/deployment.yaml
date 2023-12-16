@@ -17,9 +17,12 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
+            requests:
+              cpu: {{ .Values.deployment.app.resources.requests.cpu }}
+              memory: {{ .Values.deployment.app.resources.requests.memory }}
             limits:
-              cpu: 500m
-              memory: 512Mi
+              cpu: {{ .Values.deployment.app.resources.limits.cpu }}
+              memory: {{ .Values.deployment.app.resources.limits.memory }}
           ports:
             - name: http
               containerPort: {{ .Values.deployment.app.port }}
@@ -27,9 +30,12 @@ spec:
         - name: nginx
           image: nginx:alpine
           resources:
+            requests:
+              cpu: {{ .Values.deployment.web.resources.requests.cpu }}
+              memory: {{ .Values.deployment.web.resources.requests.memory }}
             limits:
-              cpu: 500m
-              memory: 512Mi
+              cpu: {{ .Values.deployment.web.resources.limits.cpu }}
+              memory: {{ .Values.deployment.web.resources.limits.memory }}
           ports:
             - name: http
               containerPort:  {{ .Values.deployment.nginx.port }}

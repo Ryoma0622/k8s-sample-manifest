@@ -17,8 +17,22 @@ service:
 deployment:
   app:
     port: 8080
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
   nginx:
     port: 80
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
 
 resources: {}
 nodeSelector: {}
@@ -29,7 +43,7 @@ hpa:
   minReplicas: 2
   maxReplicas: 5
   metrics:
-    container:
+    containers:
       app:
         name: sample-app
         cpu:

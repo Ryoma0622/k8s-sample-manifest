@@ -16,12 +16,20 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
           ports:
             - name: http
               containerPort: {{ .Values.deployment.app.port }}
               protocol: TCP
         - name: nginx
           image: nginx:alpine
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
           ports:
             - name: http
               containerPort:  {{ .Values.deployment.nginx.port }}

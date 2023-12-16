@@ -62,7 +62,6 @@ argocd app create sample-app-ingress \
   --helm-set ingress.isProduction=true \
   --dest-namespace sample-app-ingress \
   --dest-server https://kubernetes.default.svc \
-  --sync-policy automated \
   --upsert
 
 argocd app create sample-app-ingress-rc \
@@ -70,7 +69,6 @@ argocd app create sample-app-ingress-rc \
   --path k8s-manifests/Charts/sample-app-ingress \
   --dest-namespace sample-app-ingress-rc \
   --dest-server https://kubernetes.default.svc \
-  --sync-policy automated \
   --upsert
 
 argocd app create sample-app-100 \
@@ -80,7 +78,6 @@ argocd app create sample-app-100 \
   --helm-set ingress.className=nginx \
   --dest-namespace sample-app-100 \
   --dest-server https://kubernetes.default.svc \
-  --sync-policy automated \
   --upsert
 
 argocd app create sample-app-200 \
@@ -90,7 +87,6 @@ argocd app create sample-app-200 \
   --helm-set ingress.className=nginx-internal \
   --dest-namespace sample-app-200 \
   --dest-server https://kubernetes.default.svc \
-  --sync-policy automated \
   --upsert
 
 argocd app create sample-app-ingress-canary \
@@ -99,5 +95,4 @@ argocd app create sample-app-ingress-canary \
   --helm-set ingress.isCanaryEnabled=true \
   --dest-namespace sample-app-ingress \
   --dest-server https://kubernetes.default.svc \
-  --sync-policy automated \
   --upsert

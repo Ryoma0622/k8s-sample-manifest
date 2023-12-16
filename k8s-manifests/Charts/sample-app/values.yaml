@@ -41,18 +41,18 @@ affinity: {}
 
 hpa:
   minReplicas: 2
-  maxReplicas: 10
+  maxReplicas: 20
   metrics:
     containers:
       app:
         name: sample-app
         cpu:
-          averageUtilization: 50
+          averageUtilization: 70
         memory:
-          averageUtilization: 50
+          averageUtilization: 70
       web:
         name: nginx
         cpu:
-          averageUtilization: 50
+          averageUtilization: 70
         memory:
-          averageUtilization: 50
+          averageUtilization: 70

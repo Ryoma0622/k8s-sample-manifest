@@ -24,7 +24,7 @@ deployment:
       requests:
         cpu: 100m
         memory: 128Mi
-  nginx:
+  web:
     port: 80
     resources:
       limits:

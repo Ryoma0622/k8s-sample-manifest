@@ -10,15 +10,31 @@ spec:
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
   metrics:
-  - type: PodResource
-    resource:
+  - type: ContainerResource
+    containerResource:
       name: cpu
+      container: {{ .Values.hpa.metrics.container.app.name }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.resource.cpu.averageUtilization }}
-  - type: PodResource
-    resource:
+        averageUtilization: {{ .Values.hpa.metrics.container.app.cpu.averageUtilization }}
+  - type: ContainerResource
+    containerResource:
       name: memory
+      container: {{ .Values.hpa.metrics.container.app.name }}
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.resource.memory.averageUtilization }}
+        averageUtilization: {{ .Values.hpa.metrics.container.app.memory.averageUtilization }}
+  - type: ContainerResource
+    containerResource:
+      name: cpu
+      container: {{ .Values.hpa.metrics.container.web.name }}
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.hpa.metrics.container.web.cpu.averageUtilization }}
+  - type: ContainerResource
+    containerResource:
+      name: memory
+      container: {{ .Values.hpa.metrics.container.web.name }}
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.hpa.metrics.container.web.memory.averageUtilization }}

@@ -38,7 +38,7 @@ spec:
               memory: {{ .Values.deployment.web.resources.limits.memory }}
           ports:
             - name: http
-              containerPort:  {{ .Values.deployment.nginx.port }}
+              containerPort:  {{ .Values.deployment.web.port }}
               protocol: TCP
           volumeMounts:
             - name: nginx-proxy-config

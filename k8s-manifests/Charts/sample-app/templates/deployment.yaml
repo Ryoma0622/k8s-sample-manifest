@@ -29,23 +29,23 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /api/sample
-              port: http
-            failureThreshold: 3
-            periodSeconds: 10
+              path: {{ .Values.deployment.app.livenessProbe.path }}
+              port: {{ .Values.deployment.app.livenessProbe.portName }}
+            failureThreshold: {{ .Values.deployment.app.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.deployment.app.livenessProbe.periodSeconds }}
           readinessProbe:
             httpGet:
-              path: /api/sample
-              port: http
-            failureThreshold: 1
-            periodSeconds: 5
+              path: {{ .Values.deployment.app.readinessProbe.path }}
+              port: {{ .Values.deployment.app.readinessProbe.portName }}
+            failureThreshold: {{ .Values.deployment.app.readinessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.deployment.app.readinessProbe.periodSeconds }}
           startupProbe:
             httpGet:
-              path: /api/sample
-              port: http
-            initialDelaySeconds: 10
-            failureThreshold: 60
-            periodSeconds: 5
+              path: {{ .Values.deployment.app.startupProbe.path }}
+              port: {{ .Values.deployment.app.startupProbe.portName }}
+            initialDelaySeconds: {{ .Values.deployment.app.startupProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.deployment.app.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.deployment.app.startupProbe.periodSeconds }}
         - name: nginx
           image: nginx:alpine
           resources:

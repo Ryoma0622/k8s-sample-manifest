@@ -24,6 +24,22 @@ deployment:
       requests:
         cpu: 100m
         memory: 512Mi
+    livenessProbe:
+      path: /api/sample
+      portName: http
+      failureThreshold: 3
+      periodSeconds: 10
+    readinessProbe:
+      path: /api/sample
+      portName: http
+      failureThreshold: 1
+      periodSeconds: 5
+    startupProbe:
+      path: /api/sample
+      portName: http
+      initialDelaySeconds: 10
+      failureThreshold: 60
+      periodSeconds: 5
   web:
     port: 80
     resources:

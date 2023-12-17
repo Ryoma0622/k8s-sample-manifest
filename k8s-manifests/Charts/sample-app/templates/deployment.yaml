@@ -27,6 +27,25 @@ spec:
             - name: http
               containerPort: {{ .Values.deployment.app.port }}
               protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/sample
+              port: http
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/sample
+              port: http
+            failureThreshold: 1
+            periodSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /api/sample
+              port: http
+            initialDelaySeconds: 30
+            failureThreshold: 60
+            periodSeconds: 5
         - name: nginx
           image: nginx:alpine
           resources:

@@ -16,3 +16,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-app-100
+  syncPolicy:
+    automated: null
+    syncOptions:
+      - CreateNamespace=true

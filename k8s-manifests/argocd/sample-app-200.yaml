@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Ryoma0622/sample-rest-api.git
+    repoURL: https://github.com/Ryoma0622/k8s-sample-manifest.git
     path: k8s-manifests/Charts/sample-app
     targetRevision: HEAD
     helm:
@@ -18,3 +18,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-app-200
+  syncPolicy:
+    automated: null
+    syncOptions:
+      - CreateNamespace=true

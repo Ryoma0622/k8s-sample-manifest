@@ -33,7 +33,7 @@ spec:
         - name: controller.autoscaling.enabled
           value: "true"
         - name: controller.autoscaling.minReplicas
-          value: "2"
+          value: "1"
         - name: controller.autoscaling.maxReplicas
           value: "3"
         - name: controller.autoscaling.targetCPUUtilizationPercentage

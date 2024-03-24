@@ -42,7 +42,7 @@ spec:
                 {{- if .Values.ingress.isProduction }}
                 name: {{ .Values.ingress.svc.name }}
                 {{- else if .Values.ingress.isCanaryEnabled}}
-                name: {{ .Values.ingress.svc.nameRc }}
+                name: {{ .Values.ingress.svc.nameCanary }}
                 {{- else }}
                 name: {{ .Values.ingress.svc.nameRc }}
                 {{- end }}

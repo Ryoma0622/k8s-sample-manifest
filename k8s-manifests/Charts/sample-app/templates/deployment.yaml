@@ -64,17 +64,10 @@ spec:
               readOnly: true
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
-            - name: sample-app-nginx-crt-secret
-              readOnly: true
-              mountPath: /etc/nginx/sample-app-nginx.crt
-              subPath: hogehoge.crt
       volumes:
         - name: nginx-proxy-config
           configMap:
-            name: sample-app-nginx-conf
-#        - name: sample-app-nginx-crt-secret
-#          secret:
-#            secretName: sample-app-nginx-crt-secret
+            name: sample-app-nginx-confcret
   strategy:
     type: RollingUpdate
     rollingUpdate:

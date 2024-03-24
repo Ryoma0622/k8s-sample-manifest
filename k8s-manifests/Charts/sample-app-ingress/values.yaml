@@ -12,10 +12,12 @@ ingress:
   svc:
     name: "sample-app-svc"
     nameRc: "sample-app-svc-rc"
+    nameCanary: "sample-app-svc-canary"
   path: "/"
   pathType: "ImplementationSpecific"
   namespace: "sample-app-ingress"
   namespaceRc: "sample-app-ingress-rc"
+  namespaceCanary: "sample-app-ingress-canary"
   annotations: {}
   port: 80
   external:

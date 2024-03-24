@@ -11,8 +11,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.ingress.svc.nameRc }}
-  namespace: {{ .Values.ingress.namespace }}
+  name: {{ .Values.ingress.svc.nameCanary }}
+  namespace: {{ .Values.ingress.namespaceCanary }}
 spec:
   type: ExternalName
   externalName: {{ .Values.ingress.svc.nameRc }}.{{ .Values.ingress.namespaceRc }}.svc.cluster.local

@@ -7,7 +7,7 @@ metadata:
   namespace: {{ .Values.ingress.namespace }}
   {{- else if .Values.ingress.isCanaryEnabled }}
   name: {{ .Values.ingress.nameCanary }}
-  namespace: {{ .Values.ingress.namespace }}
+  namespace: {{ .Values.ingress.namespaceCanary }}
   {{- else }}
   name: {{ .Values.ingress.nameRc }}
   namespace: {{ .Values.ingress.namespaceRc }}

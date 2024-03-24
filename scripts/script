@@ -7,7 +7,7 @@ kind create cluster --config kind/kind-multi-node-clusters-config.yaml
 argocd repo add https://github.com/kubernetes/ingress-nginx
 
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
-helm upgrade --install ingress-nginx-internal ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx-internal --create-namespace -f internal-nginx-values.yaml
+helm upgrade --install ingress-nginx-internal ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx-internal --create-namespace -f scripts/helm-values/internal-nginx-values.yaml
 
 helm upgrade --install sample-app-ns sample-app-ns
 helm upgrade --install sample-app-ingress-rc sample-app-ingress -n sample-app-ingress-rc

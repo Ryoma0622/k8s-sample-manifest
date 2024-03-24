@@ -7,7 +7,7 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.ingress.namespace }}
+  name: {{ .Values.ingress.namespaceCanary }}
 {{- else }}
 apiVersion: v1
 kind: Namespace

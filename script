@@ -83,7 +83,6 @@ argocd app create sample-app-100 \
   --repo https://github.com/Ryoma0622/k8s-sample-manifest.git \
   --path k8s-manifests/Charts/sample-app \
   --helm-set image.tag=1.0.0 \
-  --helm-set ingress.className=nginx \
   --dest-namespace sample-app-100 \
   --dest-server https://kubernetes.default.svc \
   --upsert

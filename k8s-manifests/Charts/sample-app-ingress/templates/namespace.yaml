@@ -1,0 +1,16 @@
+{{- if .Values.ingress.isProduction }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.ingress.amespace }}
+{{- else if .Values.ingress.isCanaryEnabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.ingress.namespace }}
+{{- else }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.ingress.namespaceRc }}
+{{- end }}

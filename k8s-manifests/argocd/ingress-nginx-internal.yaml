@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx-internal
+spec:
+  destination:
+    name: ''
+    namespace: ingress-nginx-internal
+    server: >-
+      https://kubernetes.default.svc
+  source:
+    repoURL: 'https://kubernetes.github.io/ingress-nginx'
+    targetRevision: 4.9.0
+    chart: ingress-nginx
+    helm:
+      parameters:
+        - name: controller.replicaCount
+          value: "1"
+        - name: controller.ingressClassResource.name
+          value: "nginx-internal"
+        - name: controller.ingressClassResource.controllerValue
+          value: "k8s.io/ingress-nginx-internal"
+        - name: controller.ingressClass
+          value: "nginx-internal"
+        - name: controller.resources.limits.cpu
+          value: "100m"
+        - name: controller.resources.limits.memory
+          value: "256Mi"
+        - name: controller.resources.requests.cpu
+          value: "100m"
+        - name: controller.resources.requests.memory
+          value: "256Mi"
+        - name: controller.autoscaling.enabled
+          value: "true"
+        - name: controller.autoscaling.minReplicas
+          value: "1"
+        - name: controller.autoscaling.maxReplicas
+          value: "2"
+        - name: controller.autoscaling.targetCPUUtilizationPercentage
+          value: "80"
+        - name: controller.autoscaling.targetMemoryUtilizationPercentage
+          value: "80"
+        - name: controller.service.externalTrafficPolicy
+          value: 'Local'
+        - name: controller.config.proxy-body-size
+          value: "40m"
+        - name: controller.config.keep-alive
+          value: "7"
+        - name: controller.config.keep-alive-requests
+          value: "10"
+        - name: controller.config.hsts
+          value: "true"
+        - name: controller.config.hsts-max-age
+          value: "31536000"
+        - name: controller.config.hsts-preload
+          value: "true"
+        - name: controller.config.log-format-upstream
+          value: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" $request_length $request_time [$proxy_upstream_name] [$proxy_alternative_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status \"$http_x_forwarded_for\" $req_id"
+        - name: controller.config.client-header-timeout
+          value: "10"
+        - name: controller.config.client-body-timeout
+          value: "10"
+        - name: controller.config.large-client-header-buffers
+          value: "2 1k"
+        - name: controller.addHeaders.X-Frame-Options
+          value: "SAMEORIGIN"
+        - name: controller.addHeaders.X-Content-Type-Options
+          value: "nosniff"
+  sources: []
+  project: default
+  syncPolicy:
+    automated: null
+    syncOptions:
+      - CreateNamespace=true

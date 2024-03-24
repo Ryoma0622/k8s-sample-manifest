@@ -1,18 +1,14 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: sample-app-traefik-ingress
+  name: sample-app-traefik-ingress-route
   namespace: sample-app-100
 spec:
-  ingressClassName: traefik
-  rules:
-  - host: sample-app-traefik-ingress.example.com
-    http:
-      paths:
-        - pathType: ImplementationSpecific
-          path: "/"
-          backend:
-            service:
-              name: sample-app-100
-              port:
-                number: 80
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`sample-app-traefik-ingress.example.com`)
+      kind: Rule
+      services:
+        - name: sample-app-100
+          port: 80

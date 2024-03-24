@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: sample-app-traefik-ingress
+  namespace: sample-app-100
 spec:
   ingressClassName: traefik
   rules:

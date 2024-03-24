@@ -55,7 +55,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 argocd login localhost:8888
 argocd account update-password
 
-argocd repo add https://github.com/Ryoma0622/sample-rest-api.git
+argocd repo add https://github.com/Ryoma0622/k8s-sample-manifest.git
 
 argocd app create sample-app-ns \
   --repo https://github.com/Ryoma0622/k8s-sample-manifest.git \

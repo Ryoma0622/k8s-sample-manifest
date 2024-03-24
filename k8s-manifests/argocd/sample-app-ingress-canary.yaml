@@ -1,15 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sample-app-ingress-rc
+  name: sample-app-ingress-canary
+  namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/Ryoma0622/k8s-sample-manifest.git'
+    repoURL: https://github.com/Ryoma0622/sample-rest-api.git
     path: k8s-manifests/Charts/sample-app-ingress
+    targetRevision: HEAD
+    helm:
+      parameters:
+        - name: ingress.isCanaryEnabled
+          value: "true"
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: sample-app-ingress-rc
+    server: https://kubernetes.default.svc
+    namespace: sample-app-ingress-canary
   syncPolicy:
     automated: null
     syncOptions:

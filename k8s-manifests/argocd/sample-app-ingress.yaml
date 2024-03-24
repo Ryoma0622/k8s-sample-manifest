@@ -2,11 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: sample-app-ingress
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/Ryoma0622/k8s-sample-manifest.git'
     path: k8s-manifests/Charts/sample-app-ingress
+    targetRevision: HEAD
     helm:
       parameters:
         - name: ingress.isProduction

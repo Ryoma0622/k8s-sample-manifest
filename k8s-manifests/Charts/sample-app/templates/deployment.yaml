@@ -72,9 +72,9 @@ spec:
         - name: nginx-proxy-config
           configMap:
             name: sample-app-nginx-conf
-        - name: sample-app-nginx-crt-secret
-          secret:
-            secretName: sample-app-nginx-crt-secret
+#        - name: sample-app-nginx-crt-secret
+#          secret:
+#            secretName: sample-app-nginx-crt-secret
   strategy:
     type: RollingUpdate
     rollingUpdate:

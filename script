@@ -54,14 +54,14 @@ argocd account update-password
 argocd repo add https://github.com/Ryoma0622/sample-rest-api.git
 
 argocd app create sample-app-ns \
-  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --repo https://github.com/Ryoma0622/k8s-sample-manifest.git \
   --path k8s-manifests/Charts/sample-app-ns \
   --dest-server https://kubernetes.default.svc \
   --sync-policy automated \
   --upsert
 
 argocd app create sample-app-ingress \
-  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --repo https://github.com/Ryoma0622/k8s-sample-manifest.git \
   --path k8s-manifests/Charts/sample-app-ingress \
   --helm-set ingress.isProduction=true \
   --dest-namespace sample-app-ingress \
@@ -69,14 +69,14 @@ argocd app create sample-app-ingress \
   --upsert
 
 argocd app create sample-app-ingress-rc \
-  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --repo https://github.com/Ryoma0622/k8s-sample-manifest.git \
   --path k8s-manifests/Charts/sample-app-ingress \
   --dest-namespace sample-app-ingress-rc \
   --dest-server https://kubernetes.default.svc \
   --upsert
 
 argocd app create sample-app-100 \
-  --repo https://github.com/Ryoma0622/sample-rest-api.git \
+  --repo https://github.com/Ryoma0622/k8s-sample-manifest.git \
   --path k8s-manifests/Charts/sample-app \
   --helm-set image.tag=1.0.0 \
   --helm-set ingress.className=nginx \

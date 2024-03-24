@@ -1,3 +1,7 @@
+# Kind
+
+kind create cluster --config kind/kind-multi-node-clusters-config.yaml
+
 # For Ingress
 
 argocd repo add https://github.com/kubernetes/ingress-nginx

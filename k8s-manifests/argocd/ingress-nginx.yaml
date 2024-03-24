@@ -15,7 +15,7 @@ spec:
     helm:
       parameters:
         - name: controller.replicaCount
-          value: "2"
+          value: "1"
         - name: controller.ingressClassResource.name
           value: "nginx"
         - name: controller.ingressClassResource.controllerValue

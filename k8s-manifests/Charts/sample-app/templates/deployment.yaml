@@ -67,7 +67,7 @@ spec:
       volumes:
         - name: nginx-proxy-config
           configMap:
-            name: sample-app-nginx-confcret
+            name: sample-app-nginx-conf
   strategy:
     type: RollingUpdate
     rollingUpdate:

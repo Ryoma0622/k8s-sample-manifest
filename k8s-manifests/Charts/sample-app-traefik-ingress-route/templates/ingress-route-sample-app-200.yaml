@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: sample-app-traefik-ingress-route
+  name: sample-app-traefik-ingress-route-sample-app-200
   namespace: sample-app-200
 spec:
   entryPoints:

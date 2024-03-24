@@ -1,5 +1,5 @@
 ## Sample REST API in Kubernetes
 
-<img width="1809" alt="Screenshot 2023-12-17 at 14 38 36" src="https://github.com/Ryoma0622/sample-rest-api/assets/42692947/c92e8423-c85f-4a5d-bee2-129dde5d90c9">
+<img width="1837" alt="image" src="https://github.com/Ryoma0622/k8s-sample-manifest/assets/42692947/9c723392-c4a9-42d4-8f97-3cb12fed4121">
 
-<img width="1524" alt="Screenshot 2023-12-17 at 14 38 25" src="https://github.com/Ryoma0622/sample-rest-api/assets/42692947/92971417-2183-4954-acba-e424d82e970a">
+<img width="1645" alt="image" src="https://github.com/Ryoma0622/k8s-sample-manifest/assets/42692947/2f07c1b5-90fe-457c-aead-8f44c7f900b9">

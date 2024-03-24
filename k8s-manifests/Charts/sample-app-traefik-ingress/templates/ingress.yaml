@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sample-app-traefik-ingress
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: sample-app-traefik-ingress.example.com
+    http:
+      paths:
+        - pathType: ImplementationSpecific
+          path: "/"
+          backend:
+            service:
+              name: sample-app-svc
+              port:
+                number: 80

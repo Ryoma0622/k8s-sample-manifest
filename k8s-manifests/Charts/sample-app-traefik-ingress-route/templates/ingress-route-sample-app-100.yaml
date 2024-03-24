@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`sample-app-traefik-ingress.example.com`)
+    - match: Host(`sample-app-traefik-ingress.example.com`) && Headers(`X-ROUTE`,`sample-app-100`)
       kind: Rule
       services:
         - name: sample-app-100
